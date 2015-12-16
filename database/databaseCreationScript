@@ -1,0 +1,37 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+CREATE SCHEMA IF NOT EXISTS `Sugg_Box` DEFAULT CHARACTER SET utf8 ;
+USE `Sugg_Box` ;
+
+-- Suggestion table --
+DROP TABLE IF EXISTS `Sugg_Box`.`suggestions` ;
+CREATE TABLE IF NOT EXISTS `Sugg_Box`.`suggestions` (
+`suggestion_id` INT(11) NOT NULL AUTO_INCREMENT,
+`title` VARCHAR(600) NOT NULL,
+`upvotes` INT(11) NOT NULL,
+PRIMARY KEY (`suggestion_id`)
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;
+
+-- Comment table --
+drop table if exists `Sugg_Box`.`comments`;
+CREATE TABLE IF NOT EXISTS `Sugg_Box`.`comments` (
+`comment_id` INT(11) NOT NULL AUTO_INCREMENT,
+`text` VARCHAR(3000) NOT NULL,
+`author` VARCHAR(30),
+`date` DATETIME,
+`suggestion_id` INT(11) NOT NULL,
+PRIMARY KEY (`comment_id`),
+CONSTRAINT SuggestionHasComments FOREIGN KEY (suggestion_id) REFERENCES suggestions(suggestion_id)
+ON DELETE CASCADE
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 102;
+
+-- Properties --
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

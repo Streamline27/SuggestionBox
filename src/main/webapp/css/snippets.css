@@ -1,0 +1,52 @@
+/* Comment styles */
+.thumbnail {
+    padding:0px;
+    border: 3px solid #214163;
+}
+.panel {
+    position:relative;
+}
+.panel>.panel-heading:after,.panel>.panel-heading:before{
+    position:absolute;
+    top:11px;left:-16px;
+    right:100%;
+    width:0;
+    height:0;
+    display:block;
+    content:" ";
+    border-color:transparent;
+    border-style:solid solid outset;
+    pointer-events:none;
+}
+.panel>.panel-heading:after{
+    border-width:7px;
+    border-right-color:#f7f7f7;
+    margin-top:1px;
+    margin-left:2px;
+}
+.panel>.panel-heading:before{
+    border-right-color:#ddd;
+    border-width:8px;
+}
+
+/* Custom styles */
+.panel-default > .panel-heading {
+    background-color: #214163;
+    border: 1px solid #214163;
+    color: white;
+}
+
+.text-muted{
+    color: #74dbee;
+}
+
+.panel{
+    background-color: #272a33;
+}
+
+.panel-default{
+    border: 3px solid #214163;
+    color: white;
+}
+
+/* End comment styles */

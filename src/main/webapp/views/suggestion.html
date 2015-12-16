@@ -1,0 +1,35 @@
+<a href="#/">
+    <div class="button-back">
+        <span class="glyphicon glyphicon-chevron-left" ng-click="upVote(post)">
+        </span>
+    </div>
+</a>
+
+<div class="suggestion">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="container">
+                <h1>{{post.title}}</h1>
+                <p> <span class="glyphicon glyphicon-plus-sign" ng-click="upVote(post)"></span> Upvotes: {{post.upvotes}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="comment-form">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form ng-submit="addComment(post)">
+                <div class="form-group">
+                    <label for="comment">Your Comment</label>
+                    <textarea name="comment" class="form-control" rows="3" ng-model="commentText"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="comment-section">
+    <comment info="comment" ng-repeat="comment in post.comments | orderBy: 'date' " ></comment>
+</div>

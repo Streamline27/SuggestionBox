@@ -1,0 +1,20 @@
+<div class="comment">
+    <div class="row">
+        <div class="col-sm-1 col-md-offset-3" >
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </div><!-- /thumbnail -->
+        </div><!-- /col-sm-1 -->
+
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>{{ info.author }}</strong> <span class="text-muted">commented on {{info.date | date:'medium'}}</span>
+                </div>
+                <div class="panel-body">
+                    {{ info.text }}
+                </div><!-- /panel-body -->
+            </div><!-- /panel panel-default -->
+        </div><!-- /col-sm-5 -->
+    </div>
+</div>
