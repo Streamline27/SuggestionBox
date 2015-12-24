@@ -1,0 +1,30 @@
+package app.config;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.inject.Qualifier;
+import javax.persistence.EntityManagerFactory;
+
+/**
+ * Created by Vladislav on 12/20/2015.
+ */
+
+@Configuration
+@EntityScan(basePackages = "app/core/domain")
+public class HibernateConfig {
+
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
+
+    @Bean
+    public SessionFactory getSessionFactory() throws Exception {
+        if (entityManagerFactory.unwrap(SessionFactory.class) == null)
+            throw new NullPointerException("Factory is not a hibernate factory");
+        return entityManagerFactory.unwrap(SessionFactory.class);
+    }
+}

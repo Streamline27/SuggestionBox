@@ -1,5 +1,7 @@
 package app.rest.demo;
 
+import app.core.database.SuggestionDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
@@ -13,9 +15,13 @@ import javax.ws.rs.Produces;
 @Component
 @Path("/demo")
 public class DemoResourceImpl {
+    @Autowired
+    SuggestionDAO sd;
+
     @GET
     @Produces("text/plain")
-    public String Greeting(){
+    public String Greeting()
+    {
         return "Hello";
     }
 }

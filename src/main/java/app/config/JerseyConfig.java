@@ -2,8 +2,8 @@ package app.config;
 
 import app.rest.RestResource;
 import app.rest.demo.DemoResourceImpl;
+import app.rest.suggestion.SuggestionResourceImpl;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import javax.ws.rs.ApplicationPath;
@@ -16,5 +16,6 @@ import javax.ws.rs.ApplicationPath;
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig(){
         register(DemoResourceImpl.class);
+        register(SuggestionResourceImpl.class);
     }
 }
