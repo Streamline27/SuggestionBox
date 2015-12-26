@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Vladislav on 12/27/2015.
  */
-public class DTOConverterImp implements DTOConverter{
+public class DTOConverterImpl implements DTOConverter{
 
     @Override
     public List<SuggestionDTO> convertSuggestionsToDto(List<Suggestion> suggestions) {
