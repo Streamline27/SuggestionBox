@@ -1,11 +1,9 @@
 package app.rest.suggestion;
 
+import app.core.database.SuggestionDAO;
 import app.dto.SuggestionDTO;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 
 import java.util.List;
 
@@ -20,4 +18,9 @@ public interface SuggestionResource {
     @Produces(APPLICATION_JSON)
     @Path("/suggestions/")
     List<SuggestionDTO> getAll();
+
+    @POST
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    SuggestionDTO create(SuggestionDTO suggestionDTO);
 }

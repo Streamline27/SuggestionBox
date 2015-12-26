@@ -1,8 +1,5 @@
 package app.dto;
 
-import app.core.domain.Comment;
-import app.core.domain.Suggestion;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +10,10 @@ public class SuggestionDTO {
     private Long id;
     public String title;
     private Long upvotes;
-    private List<CommentDTO> comments = new ArrayList<>();
+    private List<CommentDTO> comments;
 
-    public SuggestionDTO(Suggestion suggestion){
-        id = suggestion.getId();
-        title = suggestion.getTitle();
-        upvotes = suggestion.getUpvotes();
-        for (Comment comment : suggestion.getComments()){
-            comments.add(new CommentDTO(comment));
-        }
+    public SuggestionDTO() {
+        comments = new ArrayList<>();
     }
 
     public SuggestionDTO(Long id, String title, Long upvotes, List<CommentDTO> comments) {

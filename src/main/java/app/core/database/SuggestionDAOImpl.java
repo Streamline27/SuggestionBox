@@ -1,6 +1,7 @@
 package app.core.database;
 
 import app.core.domain.Suggestion;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,6 @@ public class SuggestionDAOImpl implements SuggestionDAO{
     @Override
     public List<Suggestion> getAll()
     {
-        return getCurrectSession().createCriteria(Suggestion.class).list();
+        return getCurrectSession().createCriteria(Suggestion.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 }

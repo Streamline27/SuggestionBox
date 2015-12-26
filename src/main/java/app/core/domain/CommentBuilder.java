@@ -16,7 +16,7 @@ public class CommentBuilder {
     }
 
     public Comment Build(){
-        return new Comment(text, author, date, suggestion);
+        return new Comment(text, author, date);
     }
 
     public CommentBuilder withId(Long id){
@@ -38,8 +38,4 @@ public class CommentBuilder {
         return this;
     }
 
-    public CommentBuilder withSuggestion(Suggestion suggestion){
-        this.suggestion = suggestion;
-        return this;
-    }
 }

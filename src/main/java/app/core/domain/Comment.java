@@ -25,15 +25,6 @@ public class Comment {
     @Column(name="date", nullable = false)
     private Date date;
 
-    public Suggestion getSuggestion() {
-        return suggestion;
-    }
-
-    public void setSuggestion(Suggestion suggestion)
-    {
-        this.suggestion = suggestion;
-    }
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="suggestion_id", nullable = false)
     private Suggestion suggestion;
@@ -41,7 +32,7 @@ public class Comment {
     private Comment() {
     }
 
-    public Comment(String text, String author, Date date, Suggestion suggestion) {
+    public Comment(String text, String author, Date date) {
         this.text = text;
         this.author = author;
         this.date = date;
@@ -79,4 +70,14 @@ public class Comment {
     public Date getDate() {
         return date;
     }
+
+    public Suggestion getSuggestion() {
+        return suggestion;
+    }
+
+    public void setSuggestion(Suggestion suggestion)
+    {
+        this.suggestion = suggestion;
+    }
+
 }

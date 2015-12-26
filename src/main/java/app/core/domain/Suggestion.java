@@ -71,4 +71,9 @@ public class Suggestion {
         this.upvotes = upvotes;
     }
 
+    public void addComment(Comment comment){
+        comments.add(comment);
+        comment.setSuggestion(this);
+    }
+
 }

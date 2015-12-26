@@ -1,7 +1,5 @@
 package app.dto;
 
-import app.core.domain.Comment;
-
 import java.util.Date;
 
 /**
@@ -13,11 +11,7 @@ public class CommentDTO {
     private String author;
     private Date date;
 
-    public CommentDTO(Comment comment){
-        id = comment.getId();
-        text = comment.getText();
-        author = comment.getAuthor();
-        date = comment.getDate();
+    public CommentDTO(){
     }
 
     public CommentDTO(Long id, String text, String author, Date date) {

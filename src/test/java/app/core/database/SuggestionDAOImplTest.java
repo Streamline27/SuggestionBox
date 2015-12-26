@@ -1,22 +1,11 @@
 package app.core.database;
 
-import app.config.SuggestionBoxApplication;
+import app.core.DatabaseHibernateTest;
 import app.core.domain.Suggestion;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.hibernate.SessionFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -25,20 +14,12 @@ import static org.junit.Assert.*;
  * Created by Vladislav on 12/20/2015.
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {SuggestionBoxApplication.class})
-@Transactional
-public class SuggestionDAOImplTest {
+public class SuggestionDAOImplTest extends DatabaseHibernateTest {
     @Autowired
     SessionFactory sessionFactory;
 
     @Autowired
     SuggestionDAO suggestionDAO;
-
-    @Before
-    public void ClearDatabase(){
-        sessionFactory.getCurrentSession().createQuery("delete from Suggestion").executeUpdate();
-    }
 
 
     @Test

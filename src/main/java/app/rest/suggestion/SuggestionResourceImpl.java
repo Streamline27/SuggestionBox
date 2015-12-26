@@ -1,17 +1,16 @@
 package app.rest.suggestion;
 
+import app.core.database.SuggestionDAO;
 import app.core.database.SuggestionDAOImpl;
 import app.core.domain.Suggestion;
+import app.core.services.SuggestionInsertionService;
 import app.dto.SuggestionDTO;
+import app.dto.converter.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import java.util.ArrayList;
+import javax.ws.rs.*;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -22,11 +21,11 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Component
 @Path("/suggestions/")
 public class SuggestionResourceImpl implements SuggestionResource {
-    @Autowired
-    SuggestionDAOImpl suggestionDAO;
+    @Autowired SuggestionDAOImpl suggestionDAO;
+    @Autowired TransactionTemplate transactionTemplate;
+    @Autowired DTOConverter dtoConverter;
+    @Autowired SuggestionInsertionService suggestionInsertionService;
 
-    @Autowired
-    TransactionTemplate transactionTemplate;
 
     @Override
     @GET
@@ -34,18 +33,21 @@ public class SuggestionResourceImpl implements SuggestionResource {
     @Produces(APPLICATION_JSON)
     public List<SuggestionDTO> getAll() {
         List<Suggestion> suggestions = getSuggestionsFromDAO();
-        return ConvertToDto(suggestions);
+        return dtoConverter.convertSuggestionsToDto(suggestions);
+    }
+
+    @Override
+    @POST
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    public SuggestionDTO create(SuggestionDTO suggestionDTO) {
+        Suggestion suggestion = dtoConverter.convertDtoToSuggestion(suggestionDTO);
+        suggestionInsertionService.InsertSuggestionWithComments(suggestion);
+        return suggestionDTO;
     }
 
     private List<Suggestion> getSuggestionsFromDAO() {
         return transactionTemplate.execute((TransactionStatus) -> suggestionDAO.getAll());
     }
 
-    private List<SuggestionDTO> ConvertToDto(List<Suggestion> suggestions) {
-        List<SuggestionDTO>  suggestionDTOs= new ArrayList<>();
-        for (Suggestion suggestion : suggestions){
-            suggestionDTOs.add(new SuggestionDTO(suggestion));
-        }
-        return suggestionDTOs;
-    }
 }
