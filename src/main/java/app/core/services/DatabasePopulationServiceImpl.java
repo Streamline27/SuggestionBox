@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.metamodel.EntityType;
 import java.util.ArrayList;
@@ -23,8 +24,9 @@ public class DatabasePopulationServiceImpl implements DatabasePopulationService 
 
     @Autowired EntityManagerFactory entityManagerFactory;
     @Autowired SessionFactory sessionFactory;
-    @Autowired CommentingService cs;
-    @Autowired SuggestionInsertionService suggestionInsertionService;
+    @Autowired CommentingService commentingService;
+    @Autowired SuggestionFactory suggestionFactory;
+
 
     @Override
     public void clearDatabase() {
@@ -36,43 +38,44 @@ public class DatabasePopulationServiceImpl implements DatabasePopulationService 
 
     @Override
     public void populateDatabase() {
-        List<Suggestion> suggestionsToPopulate = new ArrayList<>();
-
-        Suggestion commentedSuggestion = getCommentedSuggestion();;
-        suggestionsToPopulate.add(commentedSuggestion);
-        addUncommentedSuggestions(suggestionsToPopulate);
-
-        suggestionInsertionService.InsertSuggestionsWithComments(suggestionsToPopulate);
+        createCommentedSuggestion();
+        createUncommentedSuggestions();
     }
+
+
     /* Private helper methods */
 
     /* populateDatabase helper methods */
-    private void addUncommentedSuggestions(List<Suggestion> suggestionsToPopulate) {
-        suggestionsToPopulate.add(new Suggestion("End all club emails with Laffy Taffy jokes", (long) 9));
-        suggestionsToPopulate.add(new Suggestion("Free pizza at club meetings", (long) 15));
-        suggestionsToPopulate.add(new Suggestion("Sing Bon Jovi\\'s \"Living on a Prayer\" halfway through meetings", (long) 3));
-    }
-
-    private Suggestion getCommentedSuggestion() {
+    private void createCommentedSuggestion() {
         Suggestion suggestion = new Suggestion("Retrofit water fountain with Gatorade", (long) 7);
-        List<Comment> commentList;
-        commentList = getComments();
-        cs.commentOnSuggestion(commentList, suggestion);
-        return suggestion;
-    }
+        suggestionFactory.createSuggestion(suggestion);
 
+        List<Comment> commentList = getComments();
+        commentingService.commentOnSuggestion(commentList, suggestion);
+
+    }
     private List<Comment> getComments() {
-        List<Comment> commentList;
-        commentList  = new ArrayList<>();
-        addCommentsToCommentList(commentList);
-        return commentList;
-    }
-
-    private void addCommentsToCommentList(List<Comment> comments) {
+        List<Comment> comments = new ArrayList<>();;
         comments.add(new Comment("Cool idea, I like that!", "Streamline27", new Date()));
         comments.add(new Comment("Vodka Mishka Balalaika", "Sharter", new Date()));
         comments.add(new Comment("Nice one.", "Nephius", new Date()));
+        return comments;
     }
+
+
+    private void createUncommentedSuggestions() {
+        List<Suggestion> uncommentedSuggestions = getUncommentedSuggestions();
+        suggestionFactory.createSuggestions(uncommentedSuggestions);
+
+    }
+    public List<Suggestion> getUncommentedSuggestions() {
+        List<Suggestion> uncommentedSuggestions = new ArrayList<>();
+        uncommentedSuggestions.add(new Suggestion("End all club emails with Laffy Taffy jokes", (long) 9));
+        uncommentedSuggestions.add(new Suggestion("Free pizza at club meetings", (long) 15));
+        uncommentedSuggestions.add(new Suggestion("Sing Bon Jovi\\'s \"Living on a Prayer\" halfway through meetings", (long) 3));
+        return uncommentedSuggestions;
+    }
+
 
     /* clearDatabase helper methods */
     private List<String> getEntityClassNames() {
@@ -82,9 +85,9 @@ public class DatabasePopulationServiceImpl implements DatabasePopulationService 
         return entityNames;
 
     }
-
     private void clearTableByEntityName(String entityName) {
         sessionFactory.getCurrentSession().createQuery("delete from "+entityName).executeUpdate();
     }
+
 
 }

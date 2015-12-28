@@ -14,21 +14,17 @@ import java.util.List;
  * Created by Vladislav on 12/26/2015.
  */
 @Component
-public class SuggestionInsertionServiceImpl implements SuggestionInsertionService {
+public class SuggestionFactoryImpl implements SuggestionFactory {
     @Autowired SuggestionDAO suggestionDAO;
     @Autowired CommentDAO commentDAO;
 
     @Override
-    @Transactional
-    public void InsertSuggestionWithComments(Suggestion suggestion) {
+    public void createSuggestion(Suggestion suggestion) {
         suggestionDAO.create(suggestion);
-        for (Comment comment : suggestion.getComments()) commentDAO.create(comment);
     }
 
     @Override
-    public void InsertSuggestionsWithComments(List<Suggestion> suggestions) {
-        for (Suggestion suggestion: suggestions){
-            InsertSuggestionWithComments(suggestion);
-        }
+    public void createSuggestions(List<Suggestion> suggestions) {
+        for (Suggestion suggestion: suggestions) suggestionDAO.create(suggestion);
     }
 }
