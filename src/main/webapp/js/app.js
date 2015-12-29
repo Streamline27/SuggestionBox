@@ -3,6 +3,8 @@
  */
 var app = angular.module('SuggestionBox', ['ngRoute']);
 
+app.constant('ENDPOINT_URL', 'http://localhost:8080/api/');
+
 app.config(function($routeProvider){
     $routeProvider
         .when('/', {

@@ -1,6 +1,6 @@
 <a href="#/">
     <div class="button-back">
-        <span class="glyphicon glyphicon-chevron-left" ng-click="upVote(post)">
+        <span class="glyphicon glyphicon-chevron-left">
         </span>
     </div>
 </a>
@@ -31,5 +31,5 @@
 </div>
 
 <div class="comment-section">
-    <comment info="comment" ng-repeat="comment in post.comments | orderBy: 'date' " ></comment>
+    <comment info="comment" ng-repeat="comment in comments | orderBy: 'date' " ></comment>
 </div>

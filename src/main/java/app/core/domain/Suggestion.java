@@ -27,7 +27,7 @@ public class Suggestion {
     @Column(name="upvotes", nullable = false)
     private Long upvotes;
 
-    @OneToMany(mappedBy = "suggestion", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "suggestion", fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
 
@@ -37,6 +37,12 @@ public class Suggestion {
     public Suggestion(String title, Long upvotes) {
         this.title = title;
         this.upvotes = upvotes;
+    }
+
+    public Suggestion(Long id, String title, Long upvotes) {
+        this.title = title;
+        this.upvotes = upvotes;
+        this.id = id;
     }
 
     public void setComments(List<Comment> comments) {

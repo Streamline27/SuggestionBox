@@ -10,17 +10,14 @@ public class SuggestionDTO {
     private Long id;
     public String title;
     private Long upvotes;
-    private List<CommentDTO> comments;
 
-    public SuggestionDTO() {
-        comments = new ArrayList<>();
+    public SuggestionDTO(){
     }
 
-    public SuggestionDTO(Long id, String title, Long upvotes, List<CommentDTO> comments) {
+    public SuggestionDTO(Long id, String title, Long upvotes) {
         this.id = id;
         this.title = title;
         this.upvotes = upvotes;
-        this.comments = comments;
     }
 
     public Long getId() {
@@ -47,11 +44,4 @@ public class SuggestionDTO {
         this.upvotes = upvotes;
     }
 
-    public List<CommentDTO> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentDTO> comments) {
-        this.comments = comments;
-    }
 }

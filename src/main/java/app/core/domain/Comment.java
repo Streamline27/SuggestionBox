@@ -25,8 +25,8 @@ public class Comment {
     @Column(name="date", nullable = false)
     private Date date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="suggestion_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="suggestion_id")
     private Suggestion suggestion;
 
     private Comment() {
@@ -36,7 +36,6 @@ public class Comment {
         this.text = text;
         this.author = author;
         this.date = date;
-        this.suggestion = suggestion;
     }
 
     private void setId(Long id) {

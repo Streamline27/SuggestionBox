@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +28,7 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     public void afterInsertCommentSuggestionShouldBeReturnedWithThatComment() throws Exception {
-        // Creating suggestion
+        // Creating suggestions
         String suggestionTitile = "TestTitle";
         Long suggestionUpvotes = (long) 0;
 
@@ -59,7 +60,7 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     public void getBySuggestionShouldReturnListOfComentsRelatedToSuggestion() throws Exception {
-        // Creating suggestion
+        // Creating suggestions
         String suggestionTitile = "TestTitle";
         Long suggestionUpvotes = (long) 0;
 
@@ -67,15 +68,20 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         suggestionDAO.create(testSuggesion);
 
         int numComments= 5;
+
+        createComments(testSuggesion, numComments);
+
+        List<Comment> commentList = commentDAO.getBySuggestion(testSuggesion);
+        assertEquals(numComments, commentList.size());
+    }
+
+    private void createComments(Suggestion testSuggesion, int numComments) {
         for (int i = 0; i < numComments; i++) {
             Comment comment = new Comment("Text", "Author", new Date());
-            testSuggesion.addComment(comment);
 
+            testSuggesion.addComment(comment);
             commentDAO.create(comment);
         }
-
-        testSuggesion.setComments(commentDAO.getBySuggestion(testSuggesion));
-        assertEquals(numComments, testSuggesion.getComments().size());
     }
 
     @Test

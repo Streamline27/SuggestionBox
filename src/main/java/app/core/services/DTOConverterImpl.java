@@ -29,9 +29,6 @@ public class DTOConverterImpl implements DTOConverter {
         suggestionDTO.setId(suggestion.getId());
         suggestionDTO.setTitle(suggestion.getTitle());
         suggestionDTO.setUpvotes(suggestion.getUpvotes());
-
-        List<CommentDTO> commentDTOs = createCommentDTOs(suggestion.getComments());
-        suggestionDTO.setComments(commentDTOs);
         return suggestionDTO;
     }
 
@@ -73,8 +70,6 @@ public class DTOConverterImpl implements DTOConverter {
 
     @Override
     public Suggestion createSuggestionFromDTO(SuggestionDTO suggestionDTO) {
-        Suggestion suggestion = new Suggestion(suggestionDTO.getTitle(), suggestionDTO.getUpvotes());
-        suggestion.setComments(createCommentsFromDTOs(suggestionDTO.getComments()));
-        return suggestion;
+        return new Suggestion(suggestionDTO.getId(), suggestionDTO.getTitle(), suggestionDTO.getUpvotes());
     }
 }
