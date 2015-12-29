@@ -7,6 +7,10 @@ app.controller('SuggestionController', ['$scope', '$routeParams', 'SuggestionMod
 
     /* Event handlers */
     $scope.addComment = function(){
+        if(!$scope.title || $scope.title === "") {
+            return;
+        }
+
         var comment = {
             text: $scope.commentText,
             author: "Anonymus",
