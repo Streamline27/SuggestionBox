@@ -1,9 +1,9 @@
 /**
  * Created by Vladislav on 12/14/2015.
  */
-app.controller('SuggestionController', ['$scope', '$routeParams', 'SuggestionModel', function($scope, $routeParams, SuggestionModel){
+app.controller('SuggestionController', ['$scope', '$routeParams', 'suggestions', function($scope, $routeParams, suggestions){
 
-    getPost($routeParams.Id);
+    $scope.post =  suggestions.posts[$routeParams.Id];
 
     /* Event handlers */
     $scope.addComment = function(){
@@ -17,24 +17,12 @@ app.controller('SuggestionController', ['$scope', '$routeParams', 'SuggestionMod
             date: Date.now()
         };
         $scope.commentText = "";
-        SuggestionModel.createComment($scope.post.id, comment).success(function(data){
-            $scope.comments.push(data);
-        });
+        $scope.post.comments.push(comment);
     };
 
     $scope.upVote = function(post){
         post.upvotes++;
-        SuggestionModel.update(post);
     };
 
-    /* Private helper methods */
-    function getPost(suggestionId){
-        SuggestionModel.get(suggestionId).success(function(data){
-            $scope.post = data;
-        });
-        SuggestionModel.getComments(suggestionId).success(function(data){
-            $scope.comments = data;
-        });
-    }
 
 }]);

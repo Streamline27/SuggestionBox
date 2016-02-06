@@ -16,6 +16,9 @@
 </head>
 <body ng-app="SuggestionBox">
 
+
+    <login-bar></login-bar>
+
     <header>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -39,13 +42,19 @@
 
 <!-- Directives -->
 <script type="text/javascript" src="js/directives/comment.js"></script>
+<script type="text/javascript" src="js/directives/backButton.js"></script>
+<script type="text/javascript" src="js/directives/loginBar.js"></script>
+
 
 <!-- Controllers -->
 <script type="text/javascript" src="js/controllers/HomeController.js"></script>
 <script type="text/javascript" src="js/controllers/SuggestionController.js"></script>
+<script type="text/javascript" src="js/controllers/LoginController.js"></script>
+<script type="text/javascript" src="js/controllers/RegisterController.js"></script>
 
 <!-- Services -->
-<script type="text/javascript" src="js/services/SuggestionModel.js"></script>
+<script type="text/javascript" src="js/services/suggestions.js"></script>
+
 </body>
 </html>
 
