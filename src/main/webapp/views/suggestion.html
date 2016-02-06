@@ -1,9 +1,4 @@
-<a href="#/">
-    <div class="button-back">
-        <span class="glyphicon glyphicon-chevron-left">
-        </span>
-    </div>
-</a>
+<back-button></back-button>
 
 <div class="suggestion">
     <div class="row">
@@ -19,7 +14,7 @@
 <div class="comment-form">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form ng-submit="addComment(post)">
+            <form ng-submit="addComment()">
                 <div class="form-group">
                     <label for="comment">Your Comment</label>
                     <textarea name="comment" class="form-control" rows="3" ng-model="commentText"></textarea>
@@ -31,5 +26,5 @@
 </div>
 
 <div class="comment-section">
-    <comment info="comment" ng-repeat="comment in comments | orderBy: 'date' " ></comment>
+    <comment info="comment" ng-repeat="comment in post.comments | orderBy: 'date' " ></comment>
 </div>

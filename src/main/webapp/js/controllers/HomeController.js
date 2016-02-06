@@ -1,10 +1,10 @@
 /**
  * Created by Vladislav on 12/14/2015.
  */
-app.controller('HomeController', ['$scope', 'SuggestionModel', function($scope, SuggestionModel){
+app.controller('HomeController', ['$scope', 'suggestions', function($scope, suggestions){
     $scope.helloWorld  = "HelloWorld";
 
-    getSuggestions();
+    $scope.suggestions = suggestions;
 
     $scope.addSuggestion = function(){
         if(!$scope.title || $scope.title === "") return;
@@ -12,24 +12,17 @@ app.controller('HomeController', ['$scope', 'SuggestionModel', function($scope, 
         var suggestion = {
           title: $scope.title,
           upvotes: 0,
-          id: null
+          id: suggestions.posts.length,
+          comments: []
         };
         $scope.title = "";
 
-        SuggestionModel.create(suggestion).success(function(data){
-            $scope.suggestions.push(data);
-        });
+        suggestions.posts.push(suggestion);
     };
 
     $scope.upVote = function(post){
         post.upvotes++;
-        SuggestionModel.update(post);
     };
 
-    function getSuggestions(){
-        SuggestionModel.getAll().success(function(data){
-            $scope.suggestions = data;
-        });
-    }
 
 }]);

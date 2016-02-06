@@ -18,7 +18,7 @@ header span{
     height: 57px;
 }
 
-.container{
+.suggestion  .container, header .container, .suggestion-form .container{
     padding-bottom:  20px;
     width: 100%;
     border-bottom: 1px solid white;
@@ -48,6 +48,8 @@ header span{
     margin-top: 20px;
 }
 
+/* Back button */
+
 .button-back{
     position: fixed;
     top: 50%;
@@ -75,4 +77,24 @@ header span{
     color: white;
     transition-duration: 0.8s;
     transition-property: background-color;
+}
+
+/* End back button */
+
+nav .container-fluid{
+    margin-bottom: 10px;
+    border: 1px solid black;
+    border-radius: 14px;
+}
+
+nav .navbar-header img{
+    max-width: 30px;
+    position: relative;
+    top: 50%;
+    transform: translateY(25%);
+}
+
+ul.nav a:hover {
+    color: #214163 !important;
+    border-radius: 14px;
 }

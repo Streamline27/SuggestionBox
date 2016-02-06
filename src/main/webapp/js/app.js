@@ -15,6 +15,14 @@ app.config(function($routeProvider){
             controller: 'SuggestionController',
             templateUrl: 'views/suggestion.html'
         })
+        .when('/login',{
+            controller: 'LoginController',
+            templateUrl: 'views/login.html'
+        })
+        .when('/register',{
+            controller: 'RegisterController',
+            templateUrl: 'views/register.html'
+        })
         .otherwise({
             redirectTo: '/'
         });
