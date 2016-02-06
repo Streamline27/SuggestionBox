@@ -72,7 +72,7 @@ public class DatabasePopulationServiceImpl implements DatabasePopulationService 
         List<Suggestion> uncommentedSuggestions = new ArrayList<>();
         uncommentedSuggestions.add(new Suggestion("End all club emails with Laffy Taffy jokes", (long) 9));
         uncommentedSuggestions.add(new Suggestion("Free pizza at club meetings", (long) 15));
-        uncommentedSuggestions.add(new Suggestion("Sing Bon Jovi\\'s \"Living on a Prayer\" halfway through meetings", (long) 3));
+        uncommentedSuggestions.add(new Suggestion("Sing Bon Jovi\'s \"Living on a Prayer\" halfway through meetings", (long) 3));
         return uncommentedSuggestions;
     }
 
