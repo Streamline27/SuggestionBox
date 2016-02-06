@@ -20,7 +20,7 @@ app.controller('SuggestionController', ['$scope', '$routeParams', 'SuggestionMod
         SuggestionModel.createComment($scope.post.id, comment).success(function(data){
             $scope.comments.push(data);
         });
-    };
+    }; 
 
     $scope.upVote = function(post){
         post.upvotes++;
