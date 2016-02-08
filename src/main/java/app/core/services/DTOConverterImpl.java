@@ -2,9 +2,10 @@ package app.core.services;
 
 import app.core.domain.Comment;
 import app.core.domain.Suggestion;
-import app.core.services.DTOConverter;
+import app.core.domain.User;
 import app.dto.CommentDTO;
 import app.dto.SuggestionDTO;
+import app.dto.UserDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,6 +16,11 @@ import java.util.List;
  */
 @Component
 public class DTOConverterImpl implements DTOConverter {
+    @Override
+    public UserDTO createUserDTO(User user) {
+        UserDTO userDTO = new UserDTO(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName());
+        return userDTO;
+    }
 
     @Override
     public List<SuggestionDTO> createSuggestionDTOs(List<Suggestion> suggestions) {

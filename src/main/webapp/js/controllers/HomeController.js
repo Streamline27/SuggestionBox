@@ -2,7 +2,6 @@
  * Created by Vladislav on 12/14/2015.
  */
 app.controller('HomeController', ['$scope', 'SuggestionModel', function($scope, SuggestionModel){
-    $scope.helloWorld  = "HelloWorld";
 
     getSuggestions();
 

@@ -6,15 +6,23 @@
 
     <changeSet id="1" author="vlad" context="main">
         <createTable tableName="users">
-            <column name="id" type="BIGINT" autoIncrement="true">
+            <column name="user_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
             <column name="login" type="varchar(50)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
 
             <column name="password" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="firstname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="lastname" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -62,5 +70,6 @@
             </column>
         </createTable>
     </changeSet>
+
 
 </databaseChangeLog>
