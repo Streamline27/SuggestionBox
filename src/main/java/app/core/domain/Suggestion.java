@@ -78,7 +78,7 @@ public class Suggestion {
     }
 
     public void addComment(Comment comment){
-        comments.add(comment);
+        //comments.add(comment);
         comment.setSuggestion(this);
     }
 

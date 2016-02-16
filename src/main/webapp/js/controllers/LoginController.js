@@ -1,6 +1,33 @@
 /**
  * Created by Vladislav on 2/6/2016.
  */
-app.controller('LoginController', ['$scope', function($scope){
-    $scope.helloWorld  = "HelloWorld";
+app.controller('LoginController',
+    ['$location', 'AuthenticationService', '$scope',
+        function($location, AuthenticationService, $scope){
+
+    $scope.login = login;
+    $scope.needWarning = false;
+
+    (function initController() {
+        // reset login status
+        AuthenticationService.ClearCredentials();
+    })();
+
+    function login() {
+        $scope.dataLoading = true;
+
+
+        AuthenticationService.Login($scope.username, $scope.password)
+        .then(
+            function (response) {
+                AuthenticationService.SetCredentials(response.data);
+                $location.path('/');
+            },
+            function (response) {
+                $scope.dataLoading = false;
+                $scope.needWarning = true;
+            }
+        );
+
+    }
 }]);

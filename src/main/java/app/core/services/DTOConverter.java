@@ -6,6 +6,7 @@ import app.core.domain.User;
 import app.dto.CommentDTO;
 import app.dto.SuggestionDTO;
 import app.dto.UserDTO;
+import app.dto.UserInfoDTO;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 public interface DTOConverter {
     UserDTO createUserDTO(User user);
+    UserInfoDTO createUserInfoDTO(User user);
 
     List<SuggestionDTO> createSuggestionDTOs(List<Suggestion> suggestions);
     SuggestionDTO createSuggestionDTO(Suggestion suggestion);

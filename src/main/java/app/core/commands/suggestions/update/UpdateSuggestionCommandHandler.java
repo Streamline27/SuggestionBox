@@ -1,7 +1,6 @@
 package app.core.commands.suggestions.update;
 
 import app.core.commands.DomainCommandHandler;
-import app.core.commands.DomainCommandResult;
 import app.core.database.SuggestionDAO;
 import app.core.domain.Suggestion;
 import app.core.services.DTOConverter;

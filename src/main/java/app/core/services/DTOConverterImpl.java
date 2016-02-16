@@ -6,6 +6,7 @@ import app.core.domain.User;
 import app.dto.CommentDTO;
 import app.dto.SuggestionDTO;
 import app.dto.UserDTO;
+import app.dto.UserInfoDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,6 +21,15 @@ public class DTOConverterImpl implements DTOConverter {
     public UserDTO createUserDTO(User user) {
         UserDTO userDTO = new UserDTO(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName());
         return userDTO;
+    }
+
+    @Override
+    public UserInfoDTO createUserInfoDTO(User user) {
+        return new UserInfoDTO(
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName()
+        );
     }
 
     @Override

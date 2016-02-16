@@ -5,7 +5,9 @@ import app.rest.RestResource;
 import app.rest.comments.CommentResourceImpl;
 import app.rest.demo.DemoResourceImpl;
 import app.rest.suggestions.SuggestionResourceImpl;
-import app.rest.users.UserResourceImpl;
+import app.rest.users.LoginResource;
+import app.rest.users.LoginResourceImpl;
+import app.rest.users.RegisterResourceImpl;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,6 +24,7 @@ public class JerseyConfig extends ResourceConfig {
         register(DemoResourceImpl.class);
         register(SuggestionResourceImpl.class);
         register(CommentResourceImpl.class);
-        register(UserResourceImpl.class);
+        register(RegisterResourceImpl.class);
+        register(LoginResourceImpl.class);
     }
 }

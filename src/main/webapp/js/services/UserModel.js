@@ -9,10 +9,12 @@ app.service('UserModel', ['$http', 'ENDPOINT_URL', function($http, ENDPOINT_URL)
         return ENDPOINT_URL+path;
     }
 
-    /* Public interface methods */
 
+    /* Public interface methods */
     this.create = function (user) {
         return $http.post(getUrl(), user);
     };
+
+
 
 }]);

@@ -98,3 +98,8 @@ ul.nav a:hover {
     color: #214163 !important;
     border-radius: 14px;
 }
+
+ul.nav a:focus {
+    color: #214163 !important;
+    border-radius: 14px;
+}

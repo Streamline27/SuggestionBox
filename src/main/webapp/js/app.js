@@ -1,7 +1,7 @@
 /**
  * Created by Vladislav on 12/14/2015.
  */
-var app = angular.module('SuggestionBox', ['ngRoute']);
+var app = angular.module('SuggestionBox', ['ngRoute', 'ngCookies']);
 
 app.constant('ENDPOINT_URL', 'http://localhost:8080/api/');
 
@@ -26,6 +26,8 @@ app.config(function($routeProvider){
         .otherwise({
             redirectTo: '/'
         });
+}).run(['$rootScope', '$cookieStore', function($rootScope, $cookieStore) {
+    // keep user logged in after page refresh
+    $rootScope.globals = $cookieStore.get('globals') || {};
+}]);
 
-
-});

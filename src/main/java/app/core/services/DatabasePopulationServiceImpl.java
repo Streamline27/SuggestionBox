@@ -2,12 +2,14 @@ package app.core.services;
 
 import app.core.domain.Comment;
 import app.core.domain.Suggestion;
+import app.core.services.CommentingService;
+import app.core.services.DatabasePopulationService;
+import app.core.services.SuggestionFactory;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.metamodel.EntityType;
 import java.util.ArrayList;
@@ -24,8 +26,10 @@ public class DatabasePopulationServiceImpl implements DatabasePopulationService 
 
     @Autowired EntityManagerFactory entityManagerFactory;
     @Autowired SessionFactory sessionFactory;
-    @Autowired CommentingService commentingService;
-    @Autowired SuggestionFactory suggestionFactory;
+    @Autowired
+    CommentingService commentingService;
+    @Autowired
+    SuggestionFactory suggestionFactory;
 
 
     @Override

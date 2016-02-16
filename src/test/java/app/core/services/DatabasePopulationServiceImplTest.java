@@ -16,7 +16,8 @@ import static org.junit.Assert.*;
  * Created by Vladislav on 12/25/2015.
  */
 public class DatabasePopulationServiceImplTest extends DatabaseHibernateTest {
-    @Autowired DatabasePopulationService dbPopulationService;
+    @Autowired
+    DatabasePopulationService dbPopulationService;
     @Autowired SuggestionDAO suggestionDAO;
     @Autowired CommentDAO commentDAO;
 

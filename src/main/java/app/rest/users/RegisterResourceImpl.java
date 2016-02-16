@@ -1,9 +1,10 @@
 package app.rest.users;
 
 import app.core.commands.CommandExecutor;
-import app.core.commands.users.create.CreateUserCommand;
-import app.core.commands.users.create.CreateUserResult;
+import app.core.commands.users.register.RegisterUserCommand;
+import app.core.commands.users.register.RegisterUserResult;
 import app.dto.UserDTO;
+import app.dto.UserInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
  */
 @Component
 @Path("/register")
-public class UserResourceImpl implements UserResource {
+public class RegisterResourceImpl implements RegisterResource {
     @Autowired
     CommandExecutor commandExecutor;
 
@@ -27,14 +28,14 @@ public class UserResourceImpl implements UserResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Override
-    public UserDTO create(UserDTO userDTO) {
+    public UserInfoDTO register(UserDTO userDTO) {
         String login = userDTO.getLogin();
         String pass = userDTO.getPassword();
         String firstName = userDTO.getFirstName();
         String lastName = userDTO.getLastName();
 
-        CreateUserCommand command = new CreateUserCommand(login, pass, firstName, lastName);
-        CreateUserResult result = commandExecutor.execute(command);
+        RegisterUserCommand command = new RegisterUserCommand(login, pass, firstName, lastName);
+        RegisterUserResult result = commandExecutor.execute(command);
         return result.getUser();
     }
 }
