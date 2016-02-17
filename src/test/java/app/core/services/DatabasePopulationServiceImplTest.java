@@ -5,6 +5,7 @@ import app.core.database.CommentDAO;
 import app.core.database.SuggestionDAO;
 import app.core.domain.Comment;
 import app.core.domain.Suggestion;
+import app.core.domain.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,12 +21,16 @@ public class DatabasePopulationServiceImplTest extends DatabaseHibernateTest {
     DatabasePopulationService dbPopulationService;
     @Autowired SuggestionDAO suggestionDAO;
     @Autowired CommentDAO commentDAO;
+    @Autowired UserFactory userFactory;
 
     @Test
     public void testClearDatabase() throws Exception {
+        User user = new User("test", "test", "test", "test");
+        userFactory.createUser(user);
+
         Suggestion testSuggestion = new Suggestion("Test", (long) 0);
-        Comment comment1 = new Comment("TestComment1", "TestAuthor1", new Date());
-        Comment comment2 = new Comment("TestComment2", "TestAuthor2", new Date());
+        Comment comment1 = new Comment("TestComment1", user, new Date());
+        Comment comment2 = new Comment("TestComment2", user, new Date());
 
         testSuggestion.addComment(comment1);
         testSuggestion.addComment(comment2);

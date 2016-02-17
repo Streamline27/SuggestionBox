@@ -16,7 +16,6 @@ app.controller('LoginController',
     function login() {
         $scope.dataLoading = true;
 
-
         AuthenticationService.Login($scope.username, $scope.password)
         .then(
             function (response) {

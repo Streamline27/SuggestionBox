@@ -2,6 +2,7 @@ package app.core.services;
 
 import app.core.domain.Comment;
 import app.core.domain.Suggestion;
+import app.core.domain.User;
 import app.core.services.CommentingService;
 import app.core.services.DatabasePopulationService;
 import app.core.services.SuggestionFactory;
@@ -30,7 +31,7 @@ public class DatabasePopulationServiceImpl implements DatabasePopulationService 
     CommentingService commentingService;
     @Autowired
     SuggestionFactory suggestionFactory;
-
+    @Autowired UserFactory userFactory;
 
     @Override
     public void clearDatabase() {
@@ -53,16 +54,17 @@ public class DatabasePopulationServiceImpl implements DatabasePopulationService 
     private void createCommentedSuggestion() {
         Suggestion suggestion = new Suggestion("Retrofit water fountain with Gatorade", (long) 7);
         suggestionFactory.createSuggestion(suggestion);
-
-        List<Comment> commentList = getComments();
+        User user = getCommentingUser();
+        List<Comment> commentList = getComments(user);
         commentingService.commentOnSuggestion(commentList, suggestion);
 
     }
-    private List<Comment> getComments() {
-        List<Comment> comments = new ArrayList<>();;
-        comments.add(new Comment("Cool idea, I like that!", "Streamline27", new Date()));
-        comments.add(new Comment("Vodka Mishka Balalaika", "Sharter", new Date()));
-        comments.add(new Comment("Nice one.", "Nephius", new Date()));
+    private List<Comment> getComments(User user) {
+
+        List<Comment> comments = new ArrayList<>();
+        comments.add(new Comment("Cool idea, I like that!", user, new Date()));
+        comments.add(new Comment("Vodka Mishka Balalaika", user, new Date()));
+        comments.add(new Comment("Nice one.", user, new Date()));
         return comments;
     }
 
@@ -94,4 +96,7 @@ public class DatabasePopulationServiceImpl implements DatabasePopulationService 
     }
 
 
+    private User getCommentingUser() {
+        return new User("Anonymous", "123", "Anonymous", "Anonymous");
+    }
 }

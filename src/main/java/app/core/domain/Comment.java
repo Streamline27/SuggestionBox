@@ -19,8 +19,8 @@ public class Comment {
     @Column(name="text", nullable = false)
     private String text;
 
-    @Column(name="author", nullable = false)
-    private String author;
+//    @Column(name="author", nullable = false)
+//    private String author;
 
     @Column(name="date", nullable = false)
     private Date date;
@@ -29,10 +29,15 @@ public class Comment {
     @JoinColumn(name="suggestion_id")
     private Suggestion suggestion;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private User author;
+
+
     private Comment() {
     }
 
-    public Comment(String text, String author, Date date) {
+    public Comment(String text, User author, Date date) {
         this.text = text;
         this.author = author;
         this.date = date;
@@ -46,7 +51,7 @@ public class Comment {
         this.text = text;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 
@@ -62,7 +67,7 @@ public class Comment {
         return text;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 

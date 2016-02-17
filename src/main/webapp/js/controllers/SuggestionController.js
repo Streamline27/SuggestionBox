@@ -1,22 +1,25 @@
 /**
  * Created by Vladislav on 12/14/2015.
  */
-app.controller('SuggestionController', ['$scope', '$routeParams', 'SuggestionModel', function($scope, $routeParams, SuggestionModel){
+app.controller('SuggestionController', ['$scope', '$routeParams', 'AuthenticationService','SuggestionModel',
+    function($scope, $routeParams, AuthenticationService, SuggestionModel){
 
     getPost($routeParams.Id);
+    $scope.IsLoggedIn = AuthenticationService.IsUserAuthenticated();
 
     /* Event handlers */
     $scope.addComment = function(){
-        if(!$scope.commentText || $scope.commentText === "") {
-            return;
-        }
 
+        if(isCommentTextEmpty()) return;
+        /* Creating new comment */
         var comment = {
             text: $scope.commentText,
-            author: "Anonymus",
+            author: AuthenticationService.GetUserCredentials().login,
             date: Date.now()
         };
+        /* Clearing commentText line */
         $scope.commentText = "";
+        /* Putting data to backend */
         SuggestionModel.createComment($scope.post.id, comment).success(function(data){
             $scope.comments.push(data);
         });
@@ -36,5 +39,7 @@ app.controller('SuggestionController', ['$scope', '$routeParams', 'SuggestionMod
             $scope.comments = data;
         });
     }
-
+    function isCommentTextEmpty(){
+        return (!$scope.commentText || $scope.commentText === "");
+    }
 }]);

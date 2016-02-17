@@ -10,6 +10,9 @@ AuthenticationService.$inject = ['$http', '$cookieStore', 'ENDPOINT_URL', '$root
     service.Login = Login;
     service.SetCredentials = SetCredentials;
     service.ClearCredentials = ClearCredentials;
+    service.IsUserAuthenticated = IsUserAuthenticated;
+    service.OnAuthenticationStatusChanged = OnAuthenticationStatusChanged;
+    service.GetUserCredentials = GetUserCredentials;
 
     return service;
 
@@ -19,30 +22,32 @@ AuthenticationService.$inject = ['$http', '$cookieStore', 'ENDPOINT_URL', '$root
             password: pass
         };
 
-        /* Use this for real authentication
-         ----------------------------------------------*/
         return $http.post(ENDPOINT_URL+'login/', user);
-            //.success(function (response) {
-            //    alert(response)
-            //    callback(response);
-            //});
-
-
     }
 
     function SetCredentials(user) {
-
-        $rootScope.globals = {
-            currentUser: user
-        };
-
-        //$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+        $rootScope.globals = {};
+        $rootScope.globals.currentUser = user;
         $cookieStore.put('globals', $rootScope.globals);
     }
 
     function ClearCredentials() {
         $rootScope.globals = {};
         $cookieStore.remove('globals');
-        //$http.defaults.headers.common.Authorization = 'Basic';
+    }
+
+    function IsUserAuthenticated(){
+        if ($rootScope.hasOwnProperty('globals')){
+            return ($rootScope.globals.currentUser!=null);
+        }
+        else return false;
+    }
+
+    function OnAuthenticationStatusChanged(callback){
+        $rootScope.$watch('globals', callback);
+    }
+
+    function GetUserCredentials(){
+        return $rootScope.globals.currentUser;
     }
 }

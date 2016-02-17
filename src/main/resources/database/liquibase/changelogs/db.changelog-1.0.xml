@@ -6,7 +6,7 @@
 
     <changeSet id="1" author="vlad" context="main">
         <createTable tableName="users">
-            <column name="user_id" type="BIGINT" autoIncrement="true">
+            <column name="user_id" type="INT(11)" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
@@ -69,6 +69,23 @@
                              deleteCascade="true" nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="vlad" context="main">
+
+        <dropColumn columnName="author"
+                    tableName="comments"/>
+
+        <addColumn tableName="comments">
+            <column name="user_id" type="INT(11)"/>
+        </addColumn>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="comments"
+                                 constraintName="CommentsHaveAuthors"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="users"/>
     </changeSet>
 
 

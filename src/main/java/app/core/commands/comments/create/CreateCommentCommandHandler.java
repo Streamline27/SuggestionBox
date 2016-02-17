@@ -23,6 +23,7 @@ public class CreateCommentCommandHandler implements DomainCommandHandler<CreateC
     public CreateCommentResult execute(CreateCommentCommand command) {
         Suggestion suggestion = getSuggestion(command);
         Comment comment = getComment(command);
+
         commentingService.commentOnSuggestion(comment, suggestion);
         return new CreateCommentResult(convertToDTO(comment));
     }

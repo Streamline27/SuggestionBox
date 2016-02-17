@@ -1,5 +1,6 @@
 package app.core.services;
 
+import app.core.database.UserDAO;
 import app.core.domain.Comment;
 import app.core.domain.Suggestion;
 import app.core.domain.User;
@@ -7,6 +8,7 @@ import app.dto.CommentDTO;
 import app.dto.SuggestionDTO;
 import app.dto.UserDTO;
 import app.dto.UserInfoDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -17,6 +19,9 @@ import java.util.List;
  */
 @Component
 public class DTOConverterImpl implements DTOConverter {
+    @Autowired
+    UserDAO userDAO;
+
     @Override
     public UserDTO createUserDTO(User user) {
         UserDTO userDTO = new UserDTO(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName());
@@ -60,7 +65,7 @@ public class DTOConverterImpl implements DTOConverter {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setId(comment.getId());
         commentDTO.setText(comment.getText());
-        commentDTO.setAuthor(comment.getAuthor());
+        commentDTO.setAuthor(comment.getAuthor().getFirstName());
         commentDTO.setDate(comment.getDate());
         return  commentDTO;
     }
@@ -74,7 +79,9 @@ public class DTOConverterImpl implements DTOConverter {
 
     @Override
     public Comment createCommentFromDTO(CommentDTO commentDTO) {
-        return new Comment(commentDTO.getText(), commentDTO.getAuthor(), commentDTO.getDate());
+        /*TODO Make sure that there is always an author by Authentication */
+        User user = userDAO.getByLogin(commentDTO.getAuthor());
+        return new Comment(commentDTO.getText(), user, commentDTO.getDate());
     }
 
     @Override

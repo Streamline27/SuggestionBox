@@ -23,6 +23,10 @@ app.config(function($routeProvider){
             controller: 'RegisterController',
             templateUrl: 'views/register.html'
         })
+        .when('/settings',{
+            //controller: 'RegisterController',
+            templateUrl: 'views/settings.html'
+        })
         .otherwise({
             redirectTo: '/'
         });

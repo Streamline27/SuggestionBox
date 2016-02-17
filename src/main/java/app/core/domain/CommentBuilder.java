@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class CommentBuilder {
     private String text;
-    private String author;
+    private User author;
     private Date date;
     private Suggestion suggestion;
 
@@ -28,7 +28,7 @@ public class CommentBuilder {
         return this;
     }
 
-    public CommentBuilder withAuthor(String author){
+    public CommentBuilder withAuthor(User author){
         this.author = author;
         return this;
     }

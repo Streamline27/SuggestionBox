@@ -1,6 +1,7 @@
 package app.core.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Vladislav on 2/8/2016.
@@ -27,6 +28,17 @@ public class User {
     @Column(name="lastname", nullable = false)
     private String lastName;
 
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public User(String username, String password, String firstName, String lastName) {
         this.login = username;
         this.password = password;
@@ -35,6 +47,14 @@ public class User {
     }
 
     private User() {
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public Long getId() {

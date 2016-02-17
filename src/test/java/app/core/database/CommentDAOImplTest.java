@@ -3,6 +3,8 @@ package app.core.database;
 import app.core.DatabaseHibernateTest;
 import app.core.domain.Comment;
 import app.core.domain.Suggestion;
+import app.core.domain.User;
+import app.core.services.UserFactory;
 import org.hibernate.SessionFactory;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -34,6 +36,8 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
     SuggestionDAO suggestionDAO;
     @Autowired
     CommentDAO commentDAO;
+    @Autowired
+    UserFactory userFactory;
 
     @Test
     public void afterInsertCommentSuggestionShouldBeReturnedWithThatComment() throws Exception {
@@ -42,11 +46,14 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
             Long suggestionUpvotes = (long) 0;
             Suggestion testSuggesion = new Suggestion(suggestionTitile, suggestionUpvotes);
 
+
         // Creating comment
+            User user = new User("test", "test", "test", "test");
+            userFactory.createUser(user);
             String author = "TestAuthor";
             Date date = new Date();
             String text = "TestText";
-            Comment commentToInsert = new Comment(text, author, date);
+            Comment commentToInsert = new Comment(text, user, date);
             commentToInsert.setSuggestion(testSuggesion);
 
 
@@ -94,15 +101,17 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
 
         int numComments= 5;
 
-        createComments(testSuggesion, numComments);
+        User user = new User("test", "test", "test", "test");
+        userFactory.createUser(user);
+        createComments(testSuggesion, numComments, user);
 
         List<Comment> commentList = commentDAO.getBySuggestion(testSuggesion);
         assertEquals(numComments, commentList.size());
     }
 
-    private void createComments(Suggestion testSuggesion, int numComments) {
+    private void createComments(Suggestion testSuggesion, int numComments, User user) {
         for (int i = 0; i < numComments; i++) {
-            Comment comment = new Comment("Text", "Author", new Date());
+            Comment comment = new Comment("Text", user, new Date());
 
             testSuggesion.addComment(comment);
             commentDAO.create(comment);
