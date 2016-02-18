@@ -1,9 +1,9 @@
 package app.core.commands.users.login;
 
 import app.core.commands.DomainCommandHandler;
+import app.core.commands.users.UserConverter;
 import app.core.database.UserDAO;
 import app.core.domain.User;
-import app.core.services.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class LoginUserCommandHandler
         implements DomainCommandHandler<LoginUserCommand, LoginUserResult> {
 
     @Autowired UserDAO userDAO;
-    @Autowired DTOConverter converter;
+    @Autowired UserConverter converter;
 
     @Override
     public LoginUserResult execute(LoginUserCommand command) {
@@ -45,7 +45,7 @@ public class LoginUserCommandHandler
     private LoginUserResult getSuccessfulLoginUserResult(User user) {
         LoginUserResult result = new LoginUserResult();
         result.setUserAuthorizedSuccessfully(true);
-        result.setUserInfoDTO(converter.createUserInfoDTO(user));
+        result.setUserInfoDTO(converter.toUserInfoDTO(user));
         return result;
     }
 

@@ -1,9 +1,9 @@
 package app.core.commands.suggestions.create;
 
 import app.core.commands.DomainCommandHandler;
+import app.core.commands.suggestions.SuggestionConverter;
 import app.core.domain.Suggestion;
 import app.core.services.SuggestionFactory;
-import app.core.services.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateSuggestionHandler implements DomainCommandHandler<CreateSuggestionCommand, CreateSuggestionResult> {
     @Autowired SuggestionFactory suggestionFactory;
-    @Autowired DTOConverter converter;
+    @Autowired SuggestionConverter converter;
 
     @Override
     public CreateSuggestionResult execute(CreateSuggestionCommand command) {
@@ -23,7 +23,7 @@ public class CreateSuggestionHandler implements DomainCommandHandler<CreateSugge
     }
 
     private CreateSuggestionResult getCreationResult(Suggestion suggestion) {
-        return new CreateSuggestionResult(converter.createSuggestionDTO(suggestion));
+        return new CreateSuggestionResult(converter.toDTO(suggestion));
     }
 
     private void createSuggestion(Suggestion suggestion) {

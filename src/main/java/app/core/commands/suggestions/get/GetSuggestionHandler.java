@@ -1,9 +1,9 @@
 package app.core.commands.suggestions.get;
 
 import app.core.commands.DomainCommandHandler;
+import app.core.commands.suggestions.SuggestionConverter;
 import app.core.database.SuggestionDAO;
 import app.core.domain.Suggestion;
-import app.core.services.DTOConverter;
 import app.dto.SuggestionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GetSuggestionHandler implements DomainCommandHandler<GetSuggestionCommand, GetSuggestionResult> {
     @Autowired SuggestionDAO suggestionDAO;
-    @Autowired DTOConverter converter;
+    @Autowired SuggestionConverter converter;
     @Override
     public GetSuggestionResult execute(GetSuggestionCommand command) {
         Long id = command.getSuggestionId();
@@ -24,7 +24,7 @@ public class GetSuggestionHandler implements DomainCommandHandler<GetSuggestionC
 
     private SuggestionDTO getSuggestion(Long id) {
         Suggestion suggestion = suggestionDAO.getById(id);
-        return converter.createSuggestionDTO(suggestion);
+        return converter.toDTO(suggestion);
     }
 
     @Override

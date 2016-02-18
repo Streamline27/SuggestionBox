@@ -5,7 +5,6 @@ app.controller('LoginController',
     ['$location', 'AuthenticationService', '$scope',
         function($location, AuthenticationService, $scope){
 
-    $scope.login = login;
     $scope.needWarning = false;
 
     (function initController() {
@@ -13,7 +12,7 @@ app.controller('LoginController',
         AuthenticationService.ClearCredentials();
     })();
 
-    function login() {
+    $scope.login = function login() {
         $scope.dataLoading = true;
 
         AuthenticationService.Login($scope.username, $scope.password)
@@ -27,6 +26,6 @@ app.controller('LoginController',
                 $scope.needWarning = true;
             }
         );
-
     }
+            
 }]);

@@ -1,8 +1,8 @@
 /**
  * Created by Vladislav on 12/14/2015.
  */
-app.controller('HomeController', ['$scope', 'SuggestionModel', 'AuthenticationService', '$location',
-    function($scope,  SuggestionModel, AuthenticationService, $location){
+app.controller('HomeController', ['$scope', 'SuggestionModel', 'AuthenticationService', '$location','UpVoteService',
+    function($scope,  SuggestionModel, AuthenticationService, $location, UpVoteService){
 
     /* Initializing variables */
     getSuggestions();
@@ -31,14 +31,7 @@ app.controller('HomeController', ['$scope', 'SuggestionModel', 'AuthenticationSe
         }
     };
 
-    $scope.upVote = function(post){
-        if (!$scope.isLoggedIn){
-            $location.path('/login');
-            return;
-        }
-        post.upvotes++;
-        SuggestionModel.update(post);
-    };
+    $scope.upVote = UpVoteService.upVote;
 
     /* Private helper functions */
     function getSuggestions(){

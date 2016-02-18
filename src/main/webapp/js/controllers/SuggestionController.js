@@ -1,10 +1,11 @@
 /**
  * Created by Vladislav on 12/14/2015.
  */
-app.controller('SuggestionController', ['$scope', '$routeParams', 'AuthenticationService','SuggestionModel',
-    function($scope, $routeParams, AuthenticationService, SuggestionModel){
+app.controller('SuggestionController',
+    ['$scope', '$routeParams', 'AuthenticationService','SuggestionModel', 'UpVoteService',
+    function($scope, $routeParams, AuthenticationService, SuggestionModel, UpVoteService){
 
-    getPost($routeParams.Id);
+    fetchSuggestionData($routeParams.Id);
     $scope.IsLoggedIn = AuthenticationService.IsUserAuthenticated();
 
     /* Event handlers */
@@ -25,13 +26,10 @@ app.controller('SuggestionController', ['$scope', '$routeParams', 'Authenticatio
         });
     }; 
 
-    $scope.upVote = function(post){
-        post.upvotes++;
-        SuggestionModel.update(post);
-    };
+    $scope.upVote = UpVoteService.upVote;
 
     /* Private helper methods */
-    function getPost(suggestionId){
+    function fetchSuggestionData(suggestionId){
         SuggestionModel.get(suggestionId).success(function(data){
             $scope.post = data;
         });

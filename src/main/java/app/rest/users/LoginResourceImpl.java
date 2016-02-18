@@ -24,7 +24,6 @@ public class LoginResourceImpl implements LoginResource {
     @Autowired
     CommandExecutor commandExecutor;
 
-
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)

@@ -1,9 +1,9 @@
 package app.core.commands.users.register;
 
 import app.core.commands.DomainCommandHandler;
+import app.core.commands.users.UserConverter;
 import app.core.database.UserDAO;
 import app.core.domain.User;
-import app.core.services.DTOConverter;
 import app.dto.UserInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,8 +17,7 @@ public class RegisterUserCommandHandler
     @Autowired
     UserDAO userDAO;
 
-    @Autowired
-    DTOConverter converter;
+    @Autowired UserConverter converter;
 
     @Override
     public RegisterUserResult execute(RegisterUserCommand command) {
@@ -31,7 +30,7 @@ public class RegisterUserCommandHandler
 
         userDAO.create(user);
 
-        UserInfoDTO userDTO = converter.createUserInfoDTO(user);
+        UserInfoDTO userDTO = converter.toUserInfoDTO(user);
         return new RegisterUserResult(userDTO);
     }
 

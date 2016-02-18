@@ -1,11 +1,11 @@
 package app.core.commands.comments.create;
 
 import app.core.commands.DomainCommandHandler;
+import app.core.commands.comments.CommentConverter;
 import app.core.database.SuggestionDAO;
 import app.core.domain.Comment;
 import app.core.domain.Suggestion;
 import app.core.services.CommentingService;
-import app.core.services.DTOConverter;
 import app.dto.CommentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class CreateCommentCommandHandler implements DomainCommandHandler<CreateCommentCommand, CreateCommentResult> {
     @Autowired SuggestionDAO suggestionDAO;
     @Autowired CommentingService commentingService;
-    @Autowired DTOConverter converter;
+    @Autowired CommentConverter converter;
 
     @Override
     public CreateCommentResult execute(CreateCommentCommand command) {
@@ -29,11 +29,11 @@ public class CreateCommentCommandHandler implements DomainCommandHandler<CreateC
     }
 
     private CommentDTO convertToDTO(Comment comment) {
-        return converter.createCommentDTO(comment);
+        return converter.toDTO(comment);
     }
 
     private Comment getComment(CreateCommentCommand command) {
-        return converter.createCommentFromDTO(command.getCommentDTO());
+        return converter.fromDTO(command.getCommentDTO());
     }
 
     private Suggestion getSuggestion(CreateCommentCommand command) {

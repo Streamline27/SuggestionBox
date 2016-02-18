@@ -5,7 +5,7 @@ import app.rest.RestResource;
 import app.rest.comments.CommentResourceImpl;
 import app.rest.demo.DemoResourceImpl;
 import app.rest.suggestions.SuggestionResourceImpl;
-import app.rest.users.LoginResource;
+import app.rest.CORSRequestFilter;
 import app.rest.users.LoginResourceImpl;
 import app.rest.users.RegisterResourceImpl;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -21,6 +21,7 @@ import javax.ws.rs.ApplicationPath;
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig(){
         register(CORSResponseFilter.class);
+        register(CORSRequestFilter.class);
         register(DemoResourceImpl.class);
         register(SuggestionResourceImpl.class);
         register(CommentResourceImpl.class);

@@ -1,9 +1,9 @@
 package app.core.commands.suggestions.getall;
 
 import app.core.commands.DomainCommandHandler;
+import app.core.commands.suggestions.SuggestionConverter;
 import app.core.database.SuggestionDAO;
 import app.core.domain.Suggestion;
-import app.core.services.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +16,12 @@ import java.util.List;
 public class GetAllSuggestionsHandler implements DomainCommandHandler<GetAllSuggestionsCommand, GetAllSuggestionsResult> {
     @Autowired
     SuggestionDAO suggestionDAO;
-    @Autowired
-    DTOConverter converter;
+    @Autowired SuggestionConverter converter;
 
     @Override
     public GetAllSuggestionsResult execute(GetAllSuggestionsCommand command) {
         List<Suggestion> suggestions = suggestionDAO.getAll();
-        return new GetAllSuggestionsResult(converter.createSuggestionDTOs(suggestions));
+        return new GetAllSuggestionsResult(converter.toDTOs(suggestions));
     }
 
     @Override
