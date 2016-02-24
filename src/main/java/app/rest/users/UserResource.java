@@ -1,18 +1,27 @@
 package app.rest.users;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import app.dto.UserDTO;
+import app.dto.UserInfoDTO;
 
-import java.security.Principal;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.*;
+
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
- * Created by Vladislav on 2/18/2016.
+ * Created by Vladislav on 2/22/2016.
  */
+public interface UserResource {
 
-@RestController
-public class UserResource {
-    @RequestMapping("/api/user")
-    public Principal user(Principal user){
-        return user;
-    }
+    @POST
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("user/register")
+    UserInfoDTO register(UserDTO userDTO);
+
+    @GET
+    @Produces(APPLICATION_JSON)
+    @Path("user")
+    UserInfoDTO getUser();
+
 }

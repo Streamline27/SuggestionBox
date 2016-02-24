@@ -18,13 +18,10 @@ public class CORSRequestFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
-
         if ( requestContext.getRequest().getMethod().equals( "OPTIONS" ) ) {
             System.out.println("HTTP Method (OPTIONS) - Detected!");
-
             // Just send a OK signal back to the browser (Abort the filter chain with a response.)
             Response response = Response.status(Response.Status.OK).build();
-
             requestContext.abortWith(response);
         }
     }
