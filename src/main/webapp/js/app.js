@@ -34,18 +34,17 @@ app.config(function($routeProvider){
 app.run(['AuthenticationService', '$rootScope', function(AuthenticationService, $rootScope) {
     // keep user logged in after page refresh
     AuthenticationService.AuthentifyFromCookies();
+
     // Set transitions according to routes (http://jsfiddle.net/robro/Xck5Z/)
-
-    $rootScope.$on("$locationChangeSuccess", function (event, next, current){
-        next = next.slice( next.lastIndexOf('#')+1, next.length );
-
-        if(next == "/")  $rootScope.transitionClass = "slide-right";
-        else $rootScope.transitionClass="slide-left";
-        //alert($rootScope.transitionClass);
-        //alert(next);
-    });
-
     $rootScope.transitionClass="slide-left";
+    $rootScope.$on("$locationChangeSuccess", function (event, next, current){
+        function getRelativeRoute(url){
+            return url.slice( next.lastIndexOf('#')+1, next.length );
+        }
 
+        var route = getRelativeRoute(next);
+        if(route == "/")  $rootScope.transitionClass = "slide-right";
+        else              $rootScope.transitionClass="slide-left";
+    });
 }]);
 
