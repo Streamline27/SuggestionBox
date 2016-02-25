@@ -15,17 +15,15 @@ app.controller('LoginController',
     $scope.login = function login() {
         $scope.dataLoading = true;
 
-        AuthenticationService.Login($scope.username, $scope.password)
-        .then(
-            function (response) {
-                AuthenticationService.SetCredentials(response.data);
+        AuthenticationService.Login($scope.username, $scope.password, function(authSucceeded){
+            if (authSucceeded){
                 $location.path('/');
-            },
-            function (response) {
+            }
+            else{
                 $scope.dataLoading = false;
                 $scope.needWarning = true;
             }
-        );
+        });
     }
             
 }]);

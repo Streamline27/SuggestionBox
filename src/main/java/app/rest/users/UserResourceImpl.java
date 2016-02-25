@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -57,15 +58,13 @@ public class UserResourceImpl implements UserResource {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
 
-        System.out.println(principal.toString());
-        System.out.println(principal.toString());
-        System.out.println(principal.toString());
 
         if (principal instanceof String && ((String) principal).equals("anonymousUser")) {
-            throw new WebApplicationException(401);
+            System.out.println("User Is not authenticated! Throwing error");
+            throw new WebApplicationException(HttpServletResponse.SC_CONFLICT);
         }
         UserDetails userDetails = (UserDetails) principal;
-
+        System.out.println(userDetails.getUsername());
         return new UserInfoDTO(userDetails.getUsername(), "123", "123");
     }
 }

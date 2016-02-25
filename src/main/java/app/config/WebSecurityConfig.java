@@ -42,7 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // httpBasic Authentication config
         http.authorizeRequests().antMatchers(API_PATH+"/**").authenticated();
-        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll();
         http.csrf().disable();
         http.httpBasic().authenticationEntryPoint(authenticationEntryPoint); //On Fail entryPoint
         http.logout().logoutUrl(API_PATH+"/logout");
