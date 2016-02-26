@@ -9,7 +9,7 @@ app.controller('LoginController',
 
     (function initController() {
         // reset login status
-        AuthenticationService.ClearCredentials();
+        AuthenticationService.Logout();
     })();
 
     $scope.login = function login() {

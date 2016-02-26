@@ -9,7 +9,7 @@ import app.dto.UserInfoDTO;
 public class RegisterUserResult implements DomainCommandResult {
     UserInfoDTO userInfoDTO;
 
-    public RegisterUserResult(UserInfoDTO userDTO) {
+    public RegisterUserResult(UserInfoDTO userInfoDTO) {
         this.userInfoDTO = userInfoDTO;
     }
 

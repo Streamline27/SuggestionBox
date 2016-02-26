@@ -2,7 +2,7 @@
  * Created by Vladislav on 2/8/2016.
  */
 app.service('UserModel', ['$http', 'ENDPOINT_URL', function($http, ENDPOINT_URL){
-    var path = "register/";
+    var path = "user/register";
 
     /* Private helper methods */
     function getUrl(){

@@ -5,6 +5,7 @@ app.factory('AuthenticationService', AuthenticationService);
 
 function AuthenticationService($http, $cookieStore, ENDPOINT_URL, $rootScope, UserModel, $interval) {
 AuthenticationService.$inject = ['$http', '$cookieStore', 'ENDPOINT_URL', '$rootScope', 'UserModel', '$interval'];
+    $rootScope.globals = {};
     var service = {};
 
     service.Login = Login;
@@ -12,7 +13,7 @@ AuthenticationService.$inject = ['$http', '$cookieStore', 'ENDPOINT_URL', '$root
     service.OnAuthenticationStatusChanged = OnAuthenticationStatusChanged;
     service.AuthentifyFromCookies = AuthentifyFromCookies;
     service.GetUserCredentials = GetUserCredentials;
-    service.ClearCredentials = Logout;
+    service.Logout = Logout;
             //startWatching();
 
     return service;
@@ -35,9 +36,6 @@ AuthenticationService.$inject = ['$http', '$cookieStore', 'ENDPOINT_URL', '$root
 
     }
 
-
-
-
     function Logout() {
         $rootScope.globals = {}; // Clear globals
         $cookieStore.remove('globals'); // Clear cookies
@@ -45,9 +43,7 @@ AuthenticationService.$inject = ['$http', '$cookieStore', 'ENDPOINT_URL', '$root
     }
 
     function IsUserAuthenticated(){
-        if ($rootScope.hasOwnProperty('globals')){
-            return ($rootScope.globals.currentUser!=null);
-        }
+        if ($rootScope.globals.currentUser) return true;
         else return false;
     }
 
@@ -61,13 +57,18 @@ AuthenticationService.$inject = ['$http', '$cookieStore', 'ENDPOINT_URL', '$root
 
 
     function AuthentifyFromCookies(){
-        $rootScope.globals = $cookieStore.get('globals');
-        if (typeof $rootScope.globals === 'undefined') return;
+        cookieGlobals = $cookieStore.get('globals') || {};
+        if (cookieGlobals.currentUser) {
+            var username = cookieGlobals.currentUser.username;
+            var pass = cookieGlobals.currentUser.password;
+            Login(username, pass);
+        }
 
-
-        var pass = getCurrentUserPassword();
-        var username = getCurrentUserUsername();
-        setDefaultHttpAuthenticationHeader(username, pass);
+        //if ($rootScope.globals.currentUser) {
+        //    var pass = getCurrentUserPassword();
+        //    var username = getCurrentUserUsername();
+        //    setDefaultHttpAuthenticationHeader(username, pass);
+        //}
     }
 
     /* ******* Private helper functions * *******/

@@ -1,7 +1,7 @@
 package app.core.commands.comments.get;
 
 import app.core.commands.DomainCommandHandler;
-import app.core.commands.comments.CommentConverter;
+import app.core.services.converters.CommentConverter;
 import app.core.database.CommentDAO;
 import app.core.database.SuggestionDAO;
 import app.core.domain.Suggestion;

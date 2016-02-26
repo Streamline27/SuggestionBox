@@ -18,7 +18,8 @@ public class UserDAOImpl implements UserDAO {
     SessionFactory sessionFactory;
 
     @Override
-    public void create(User user) {
+    public void create(User user)
+    {
         sessionFactory.getCurrentSession().saveOrUpdate(user);
     }
 
@@ -39,9 +40,10 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getByLogin(String login) {
-        return (User)sessionFactory.getCurrentSession()
+        User user = (User)sessionFactory.getCurrentSession()
                 .createCriteria(User.class)
-                .add(Restrictions.like("login", login)).uniqueResult();
+                .add(Restrictions.eq("login", login)).uniqueResult();
+        return user;
     }
 
     @Override

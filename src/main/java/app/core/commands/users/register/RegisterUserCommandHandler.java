@@ -1,9 +1,9 @@
 package app.core.commands.users.register;
 
 import app.core.commands.DomainCommandHandler;
-import app.core.commands.users.UserConverter;
 import app.core.database.UserDAO;
 import app.core.domain.User;
+import app.core.services.converters.UserConverter;
 import app.dto.UserInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,10 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegisterUserCommandHandler
         implements DomainCommandHandler<RegisterUserCommand, RegisterUserResult> {
-    @Autowired
-    UserDAO userDAO;
-
-    @Autowired UserConverter converter;
+    private @Autowired UserDAO userDAO;
+    private @Autowired UserConverter converter;
 
     @Override
     public RegisterUserResult execute(RegisterUserCommand command) {

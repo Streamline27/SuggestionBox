@@ -1,7 +1,7 @@
 package app.core.commands.suggestions.create;
 
 import app.core.commands.DomainCommandHandler;
-import app.core.commands.suggestions.SuggestionConverter;
+import app.core.services.converters.SuggestionConverter;
 import app.core.domain.Suggestion;
 import app.core.services.SuggestionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

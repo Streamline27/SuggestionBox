@@ -1,7 +1,7 @@
 package app.core.commands.suggestions.get;
 
 import app.core.commands.DomainCommandHandler;
-import app.core.commands.suggestions.SuggestionConverter;
+import app.core.services.converters.SuggestionConverter;
 import app.core.database.SuggestionDAO;
 import app.core.domain.Suggestion;
 import app.dto.SuggestionDTO;

@@ -1,4 +1,4 @@
-package app.core.commands.comments;
+package app.core.services.converters;
 
 import app.core.database.UserDAO;
 import app.core.domain.Comment;

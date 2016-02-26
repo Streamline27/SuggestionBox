@@ -3,12 +3,15 @@
  */
 app.controller('RegisterController', ['$scope', 'UserModel', '$location', function($scope, UserModel, $location){
     $scope.user = {};
-
+    $scope.needWarning = false;
 
     $scope.register = function(){
-        $scope.loading = true;
-        UserModel.create($scope.user).then(function(response){
+        $scope.dataLoading = true;
+        UserModel.create($scope.user).success(function(data){
             $location.path('/login');
+        }).error(function(){
+            $scope.needWarning = true;
+            $scope.dataLoading = false;
         });
     }
 }]);

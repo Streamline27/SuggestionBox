@@ -1,4 +1,4 @@
-package app.core.commands.users;
+package app.core.services.converters;
 
 import app.core.database.UserDAO;
 import app.core.domain.User;

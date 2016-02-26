@@ -1,7 +1,7 @@
 package app.core.commands.users.login;
 
 import app.core.commands.DomainCommandHandler;
-import app.core.commands.users.UserConverter;
+import app.core.services.converters.UserConverter;
 import app.core.database.UserDAO;
 import app.core.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;

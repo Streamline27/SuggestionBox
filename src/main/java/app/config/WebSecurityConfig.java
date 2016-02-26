@@ -1,10 +1,11 @@
 package app.config;
 
-import app.config.security.*;
-import app.config.security.RESTAuthenticationFailureHandler;
-import app.config.security.RESTAuthenticationSuccessHandler;
+import app.security.handlers.RESTAuthenticationEntryPoint;
+import app.security.handlers.RESTAuthenticationFailureHandler;
+import app.security.handlers.RESTAuthenticationSuccessHandler;
 import app.rest.RestResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,43 +13,49 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Created by Vladislav on 2/18/2016.
  */
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = {"app.config.security"})
+@ComponentScan(basePackages = {"app.security"})
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired RESTAuthenticationEntryPoint authenticationEntryPoint;
     @Autowired
-    RESTAuthenticationFailureHandler formAuthenticationFailureHandler;
+    @Qualifier("userDetailsService")
+    UserDetailsService userDetailsService;
+
     @Autowired
-    RESTAuthenticationSuccessHandler formAuthenticationSuccessHandler;
+    RESTAuthenticationEntryPoint authenticationEntryPoint;
 
     String API_PATH = RestResource.API_PATH;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Form Authentication config
-//        http.authorizeRequests().antMatchers(API_PATH+"/**").authenticated();
-//        http.csrf().disable();
-//        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
-//        http.formLogin().successHandler(formAuthenticationSuccessHandler);
-//        http.formLogin().failureHandler(formAuthenticationFailureHandler);
-//        http.formLogin().loginProcessingUrl(API_PATH+"/login");
-//        http.logout().logoutUrl(API_PATH+"/logout");
+        // For form Authentication tutorial visit:
+        // http://www.codesandnotes.be/2014/10/31/restful-authentication-using-spring-security-on-spring-boot-and-jquery-as-a-web-client/
 
         // httpBasic Authentication config
-        http.authorizeRequests().antMatchers(API_PATH+"/**").authenticated();
-        http.csrf().disable();
-        http.httpBasic().authenticationEntryPoint(authenticationEntryPoint); //On Fail entryPoint
-        http.logout().logoutUrl(API_PATH+"/logout");
+        /* TODO Allow authentication */
+        http.csrf().disable()
+                .httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                    .and()
+                .authorizeRequests()
+                    .antMatchers(HttpMethod.OPTIONS, API_PATH+"/**").permitAll()
+                    .antMatchers(HttpMethod.POST, API_PATH+ "/user/register").permitAll()
+                    .antMatchers(HttpMethod.GET,    API_PATH  + "/user").authenticated()
+                    .antMatchers(HttpMethod.POST,   API_PATH  +   "/**").authenticated()
+                    .antMatchers(HttpMethod.DELETE, API_PATH  +   "/**").authenticated()
+                    .antMatchers(HttpMethod.PUT,    API_PATH  +   "/**").authenticated()
+                .and()
+                    .logout().logoutUrl(API_PATH+"/logout");
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("Vasja").password("123").roles("USER");
+//        auth.inMemoryAuthentication().withUser("Vasja").password("123").roles("USER");
+        auth.userDetailsService(userDetailsService);
     }
 }

@@ -1,4 +1,4 @@
-package app.core.commands.suggestions;
+package app.core.services.converters;
 
 import app.core.domain.Suggestion;
 import app.dto.SuggestionDTO;
