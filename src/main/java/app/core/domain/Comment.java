@@ -12,7 +12,8 @@ import java.util.Date;
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_seq")
+    @SequenceGenerator(name = "comment_seq", sequenceName = "comment_seq", allocationSize = 1)
     @Column(name="comment_id", nullable = false)
     private Long id;
 
@@ -22,7 +23,7 @@ public class Comment {
 //    @Column(name="author", nullable = false)
 //    private String author;
 
-    @Column(name="date", nullable = false)
+    @Column(name="comment_date", nullable = false)
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)

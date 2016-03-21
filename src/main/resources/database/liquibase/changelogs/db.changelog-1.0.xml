@@ -4,9 +4,15 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <changeSet id="1" author="viktor" context="main">
+        <createSequence sequenceName="user_seq" />
+        <createSequence sequenceName="comment_seq" />
+        <createSequence sequenceName="suggestion_seq" />
+    </changeSet>
+
     <changeSet id="1" author="vlad" context="main">
         <createTable tableName="users">
-            <column name="user_id" type="INT(11)" autoIncrement="true">
+            <column name="user_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
@@ -32,15 +38,15 @@
 
     <changeSet id="2" author="vlad" context="main">
         <createTable tableName="suggestions">
-            <column name="suggestion_id" type="INT(11)" autoIncrement="true">
+            <column name="suggestion_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="title" type="VARCHAR(600)">
+            <column name="title" type="varchar(600)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="upvotes" type="INT(11)">
+            <column name="upvotes" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -49,23 +55,23 @@
 
     <changeSet id="3" author="vlad" context="main">
         <createTable tableName="comments">
-            <column name="comment_id" type="INT(11)" autoIncrement="true">
+            <column name="comment_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="text" type="VARCHAR(3000)">
+            <column name="text" type="varchar(3000)">
                 <constraints nullable="false"/>
             </column>
 
             <column name="author" type="varchar(30)">
             </column>
 
-            <column name="date" type="DATETIME">
+            <column name="comment_date" type="timestamp">
             </column>
 
-            <column name="suggestion_id" type="INT(11)">
+            <column name="suggestion_id" type="int">
                 <constraints references="suggestions(suggestion_id)"
-                             foreignKeyName="SuggestionHasComments"
+                             foreignKeyName="suggestion_has_comments"
                              deleteCascade="true" nullable="false"/>
             </column>
         </createTable>
@@ -77,12 +83,12 @@
                     tableName="comments"/>
 
         <addColumn tableName="comments">
-            <column name="user_id" type="INT(11)"/>
+            <column name="user_id" type="int"/>
         </addColumn>
 
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="comments"
-                                 constraintName="CommentsHaveAuthors"
+                                 constraintName="comments_have_authors"
                                  onDelete="CASCADE"
                                  referencedColumnNames="user_id"
                                  referencedTableName="users"/>

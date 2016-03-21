@@ -17,7 +17,8 @@ import java.util.Set;
 public class Suggestion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "suggestion_seq")
+    @SequenceGenerator(name = "suggestion_seq", sequenceName = "suggestion_seq", allocationSize = 1)
     @Column(name="suggestion_id", nullable = false)
     private Long id;
 
