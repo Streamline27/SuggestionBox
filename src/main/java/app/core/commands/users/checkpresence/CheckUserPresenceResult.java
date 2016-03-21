@@ -13,6 +13,6 @@ public class CheckUserPresenceResult implements DomainCommandResult {
     }
 
     public boolean isPresent() {
-        return isPresent;
+        return isPresent; //
     }
 }
