@@ -16,7 +16,7 @@ public interface UserResource {
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("user/register")
+    @Path("user/get")
     UserInfoDTO register(UserDTO userDTO);
 
     @GET

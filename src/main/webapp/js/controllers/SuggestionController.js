@@ -15,12 +15,13 @@ app.controller('SuggestionController',
         /* Creating new comment */
         var comment = {
             text: $scope.commentText,
-            author: AuthenticationService.GetUserCredentials().login,
+            author: AuthenticationService.GetUserCredentials().username,
             date: Date.now()
         };
         /* Clearing commentText line */
         $scope.commentText = "";
         /* Putting data to backend */
+        alert(comment.author);
         SuggestionModel.createComment($scope.post.id, comment).success(function(data){
             $scope.comments.push(data);
         });

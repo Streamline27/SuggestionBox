@@ -1,20 +1,21 @@
-package app.core.commands.users.register;
+package app.core.commands.users.create;
 
 import app.core.commands.DomainCommand;
+import app.core.commands.users.create.result.CreateUserCommandResult;
 
 /**
  * Created by Vladislav on 2/8/2016.
  */
-public class RegisterUserCommand implements DomainCommand<RegisterUserResult> {
+public class CreateUserCommand implements DomainCommand<CreateUserCommandResult> {
     private String login;
     private String password;
     private String firstname;
     private String lastname;
 
-    public RegisterUserCommand(String login,
-                               String password,
-                               String firstname,
-                               String lastname) {
+    public CreateUserCommand(String login,
+                             String password,
+                             String firstname,
+                             String lastname) {
         this.login = login;
         this.password = password;
         this.firstname = firstname;

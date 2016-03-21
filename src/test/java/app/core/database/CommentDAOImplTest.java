@@ -74,7 +74,7 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
 
         //Comment recievedComment = commentDAO.getById(commentToInsert.getId());
 //        Suggestion recievedSuggestion = suggestionDAO.getById(testSuggesion.getId());
-//        assertEquals(commentToInsert.getId(), recievedSuggestion.getComments().get(0).getId());
+//        assertEquals(commentToInsert.getId(), recievedSuggestion.getComments().create(0).getId());
     }
 
     private TransactionTemplate getTransactionalTemplate(){
