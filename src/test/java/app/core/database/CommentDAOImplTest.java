@@ -40,6 +40,7 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
     UserFactory userFactory;
 
     @Test
+    @Ignore
     public void afterInsertCommentSuggestionShouldBeReturnedWithThatComment() throws Exception {
         // Creating suggestions
             String suggestionTitile = "TestTitle";
@@ -91,6 +92,7 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
 
 
     @Test
+    @Ignore
     public void getBySuggestionShouldReturnListOfComentsRelatedToSuggestion() throws Exception {
         // Creating suggestions
         String suggestionTitile = "TestTitle";
