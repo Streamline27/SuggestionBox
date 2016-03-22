@@ -20,8 +20,8 @@ import javax.ws.rs.ApplicationPath;
 @ApplicationPath(RestResource.API_PATH)
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig(){
-//        register(CORSResponseFilter.class);
-//        register(CORSRequestFilter.class);
+        register(CORSResponseFilter.class);
+        register(CORSRequestFilter.class);
         register(DemoResourceImpl.class);
         register(SuggestionResourceImpl.class);
         register(CommentResourceImpl.class);
