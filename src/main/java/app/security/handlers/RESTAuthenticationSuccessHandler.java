@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by Vladislav on 2/24/2016.
  */
-@Component
+//@Component
 public class RESTAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

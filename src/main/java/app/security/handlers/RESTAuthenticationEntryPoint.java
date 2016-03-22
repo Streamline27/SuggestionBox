@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by Vladislav on 2/23/2016.
  */
-@Component
+//@Component
 public class RESTAuthenticationEntryPoint implements AuthenticationEntryPoint{
 
     @Override

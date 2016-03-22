@@ -27,8 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("userDetailsService")
     UserDetailsService userDetailsService;
 
-    @Autowired
-    RESTAuthenticationEntryPoint authenticationEntryPoint;
+//    @Autowired
+//    RESTAuthenticationEntryPoint authenticationEntryPoint;
 
     String API_PATH = RestResource.API_PATH;
 
@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // httpBasic Authentication config
         /* TODO Allow authentication */
         http.csrf().disable()
-                .httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                .httpBasic().authenticationEntryPoint(new RESTAuthenticationEntryPoint())
                     .and()
                 .authorizeRequests()
                     .antMatchers(HttpMethod.OPTIONS, API_PATH+"/**").permitAll()
