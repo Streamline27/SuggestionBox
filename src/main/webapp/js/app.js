@@ -3,7 +3,7 @@
  */
 var app = angular.module('SuggestionBox', ['ngRoute', 'ngCookies', 'ngAnimate']);
 
-app.constant('ENDPOINT_URL', 'http://localhost:8080/api/');
+app.constant('ENDPOINT_URL', 'https://quiet-stream.herokuapp.com/api/');
 
 app.config(function($routeProvider){
     $routeProvider
