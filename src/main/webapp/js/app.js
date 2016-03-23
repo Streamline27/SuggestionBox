@@ -3,7 +3,8 @@
  */
 var app = angular.module('SuggestionBox', ['ngRoute', 'ngCookies', 'ngAnimate']);
 
-app.constant('ENDPOINT_URL', 'https://quiet-stream.herokuapp.com/api/');
+//http://geekindulgence.com/environment-variables-in-angularjs-and-ionic/
+app.constant('ENDPOINT_URL', 'https://suggest-box.herokuapp.com/api/');
 
 app.config(function($routeProvider){
     $routeProvider
